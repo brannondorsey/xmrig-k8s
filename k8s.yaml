@@ -1,0 +1,46 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: xmrig
+  labels:
+    name: xmrig
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: xmrig
+  name: xmrig-deployment
+  labels:
+    app: xmrig
+spec:
+  replicas: 9
+  selector:
+    matchLabels:
+      app: xmrig
+  template:
+    metadata:
+      labels:
+        app: xmrig
+    spec:
+      containers:
+        - name: xmrig
+          image: brannondorsey/alpine-xmrig:v2.14.1
+          imagePullPolicy: Always
+          command:
+            - ./xmrig
+            - --donate-level
+            - '1'
+            - --max-cpu-usage
+            - '95'
+            - -o
+            - xmr.pool.minergate.com:45700
+            - -u
+            - brannon@brannondorsey.com
+            - -p
+            - x
+            - -k
+          resources:
+            limits:
+              cpu: 250m
+              memory: 100Mi

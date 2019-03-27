@@ -1,0 +1,3 @@
+[submodule "alpine-xmrig"]
+	path = alpine-xmrig
+	url = https://github.com/brannondorsey/alpine-xmrig.git
